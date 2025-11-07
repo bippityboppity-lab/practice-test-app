@@ -1,0 +1,1014 @@
+<p>&lt;!DOCTYPE html&gt;<br />
+&lt;html lang="en"&gt;<br />
+&lt;head&gt;<br />
+&lt;meta charset="UTF-8"&gt;<br />
+&lt;meta name="viewport" content="width=device-width,
+initial-scale=1.0"&gt;<br />
+&lt;title&gt;Data Architecture Practice Test&lt;/title&gt;<br />
+&lt;style&gt;<br />
+* {<br />
+margin: 0;<br />
+padding: 0;<br />
+box-sizing: border-box;<br />
+}<br />
+<br />
+body {<br />
+font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial,
+sans-serif;<br />
+background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);<br />
+min-height: 100vh;<br />
+padding: 20px;<br />
+}<br />
+<br />
+.container {<br />
+max-width: 1000px;<br />
+margin: 0 auto;<br />
+background: white;<br />
+border-radius: 20px;<br />
+box-shadow: 0 20px 60px rgba(0,0,0,0.3);<br />
+overflow: hidden;<br />
+}<br />
+<br />
+.header {<br />
+background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);<br />
+color: white;<br />
+padding: 30px;<br />
+text-align: center;<br />
+}<br />
+<br />
+.header h1 {<br />
+font-size: 28px;<br />
+margin-bottom: 10px;<br />
+}<br />
+<br />
+.controls {<br />
+display: flex;<br />
+gap: 10px;<br />
+justify-content: center;<br />
+margin-top: 20px;<br />
+flex-wrap: wrap;<br />
+}<br />
+<br />
+.control-btn {<br />
+background: rgba(255,255,255,0.2);<br />
+color: white;<br />
+border: 1px solid rgba(255,255,255,0.3);<br />
+padding: 8px 16px;<br />
+border-radius: 6px;<br />
+cursor: pointer;<br />
+font-size: 14px;<br />
+transition: all 0.2s;<br />
+}<br />
+<br />
+.control-btn:hover {<br />
+background: rgba(255,255,255,0.3);<br />
+}<br />
+<br />
+.control-btn.active {<br />
+background: white;<br />
+color: #667eea;<br />
+}<br />
+<br />
+.progress-bar {<br />
+height: 8px;<br />
+background: #e0e0e0;<br />
+}<br />
+<br />
+.progress-fill {<br />
+height: 100%;<br />
+background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);<br />
+width: 0%;<br />
+transition: width 0.3s;<br />
+}<br />
+<br />
+.content {<br />
+padding: 30px;<br />
+}<br />
+<br />
+.review-banner {<br />
+background: #ffd700;<br />
+color: #333;<br />
+padding: 12px;<br />
+text-align: center;<br />
+font-weight: bold;<br />
+}<br />
+<br />
+.review-banner.hidden {<br />
+display: none;<br />
+}<br />
+<br />
+.question-header {<br />
+display: flex;<br />
+justify-content: space-between;<br />
+align-items: center;<br />
+margin-bottom: 20px;<br />
+}<br />
+<br />
+.question-number {<br />
+font-size: 18px;<br />
+font-weight: bold;<br />
+color: #667eea;<br />
+}<br />
+<br />
+.mark-btn {<br />
+background: transparent;<br />
+border: 2px solid #ffd700;<br />
+color: #333;<br />
+padding: 6px 12px;<br />
+border-radius: 6px;<br />
+cursor: pointer;<br />
+font-size: 14px;<br />
+transition: all 0.2s;<br />
+}<br />
+<br />
+.mark-btn.marked {<br />
+background: #ffd700;<br />
+font-weight: bold;<br />
+}<br />
+<br />
+.question-text {<br />
+font-size: 18px;<br />
+line-height: 1.6;<br />
+margin-bottom: 25px;<br />
+color: #333;<br />
+}<br />
+<br />
+.options {<br />
+display: flex;<br />
+flex-direction: column;<br />
+gap: 12px;<br />
+margin-bottom: 25px;<br />
+}<br />
+<br />
+.option {<br />
+display: flex;<br />
+align-items: flex-start;<br />
+padding: 15px;<br />
+border: 2px solid #e0e0e0;<br />
+border-radius: 8px;<br />
+cursor: pointer;<br />
+transition: all 0.2s;<br />
+}<br />
+<br />
+.option:hover {<br />
+border-color: #667eea;<br />
+background: #f8f9ff;<br />
+}<br />
+<br />
+.option input[type="checkbox"] {<br />
+margin-right: 12px;<br />
+width: 18px;<br />
+height: 18px;<br />
+cursor: pointer;<br />
+}<br />
+<br />
+.option-text {<br />
+flex: 1;<br />
+font-size: 16px;<br />
+line-height: 1.5;<br />
+}<br />
+<br />
+.option.correct {<br />
+border-color: #4caf50;<br />
+background: #f1f8f4;<br />
+}<br />
+<br />
+.option.incorrect {<br />
+border-color: #f44336;<br />
+background: #fef1f1;<br />
+}<br />
+<br />
+.feedback {<br />
+padding: 20px;<br />
+border-radius: 8px;<br />
+margin-bottom: 20px;<br />
+}<br />
+<br />
+.feedback.hidden {<br />
+display: none;<br />
+}<br />
+<br />
+.feedback.correct {<br />
+background: #e8f5e9;<br />
+border-left: 4px solid #4caf50;<br />
+}<br />
+<br />
+.feedback.incorrect {<br />
+background: #ffebee;<br />
+border-left: 4px solid #f44336;<br />
+}<br />
+<br />
+.feedback h3 {<br />
+margin-bottom: 10px;<br />
+font-size: 18px;<br />
+}<br />
+<br />
+.explanation {<br />
+background: #f5f5f5;<br />
+padding: 20px;<br />
+border-radius: 8px;<br />
+margin-bottom: 20px;<br />
+}<br />
+<br />
+.explanation.hidden {<br />
+display: none;<br />
+}<br />
+<br />
+.explanation h3 {<br />
+margin-bottom: 15px;<br />
+font-size: 16px;<br />
+color: #667eea;<br />
+}<br />
+<br />
+.explanation p {<br />
+line-height: 1.6;<br />
+color: #555;<br />
+}<br />
+<br />
+.explanation-item {<br />
+margin-bottom: 15px;<br />
+padding: 15px;<br />
+background: white;<br />
+border-radius: 6px;<br />
+border-left: 4px solid #ddd;<br />
+}<br />
+<br />
+.explanation-item.correct-explanation {<br />
+border-left-color: #4caf50;<br />
+background: #f1f8f4;<br />
+}<br />
+<br />
+.explanation-item.incorrect-explanation {<br />
+border-left-color: #f44336;<br />
+background: #fef1f1;<br />
+}<br />
+<br />
+.explanation-status {<br />
+font-weight: bold;<br />
+margin-bottom: 8px;<br />
+font-size: 14px;<br />
+}<br />
+<br />
+.explanation-status.correct {<br />
+color: #4caf50;<br />
+}<br />
+<br />
+.explanation-status.incorrect {<br />
+color: #f44336;<br />
+}<br />
+<br />
+.explanation-choice {<br />
+font-weight: 600;<br />
+margin-bottom: 8px;<br />
+font-size: 15px;<br />
+}<br />
+<br />
+.explanation-rationale {<br />
+color: #555;<br />
+line-height: 1.6;<br />
+font-size: 14px;<br />
+}<br />
+<br />
+.buttons {<br />
+display: flex;<br />
+gap: 12px;<br />
+justify-content: center;<br />
+flex-wrap: wrap;<br />
+}<br />
+<br />
+.btn-primary, .btn-secondary {<br />
+padding: 12px 24px;<br />
+border-radius: 8px;<br />
+border: none;<br />
+cursor: pointer;<br />
+font-size: 16px;<br />
+transition: all 0.2s;<br />
+}<br />
+<br />
+.btn-primary {<br />
+background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);<br />
+color: white;<br />
+}<br />
+<br />
+.btn-primary:hover {<br />
+transform: translateY(-2px);<br />
+box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);<br />
+}<br />
+<br />
+.btn-secondary {<br />
+background: white;<br />
+color: #667eea;<br />
+border: 2px solid #667eea;<br />
+}<br />
+<br />
+.btn-secondary:hover {<br />
+background: #f8f9ff;<br />
+}<br />
+<br />
+.results {<br />
+text-align: center;<br />
+padding: 40px;<br />
+}<br />
+<br />
+.results.hidden {<br />
+display: none;<br />
+}<br />
+<br />
+.results h2 {<br />
+color: #667eea;<br />
+font-size: 32px;<br />
+margin-bottom: 30px;<br />
+}<br />
+<br />
+.score-circle {<br />
+width: 200px;<br />
+height: 200px;<br />
+border-radius: 50%;<br />
+background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);<br />
+display: flex;<br />
+flex-direction: column;<br />
+align-items: center;<br />
+justify-content: center;<br />
+margin: 0 auto 30px;<br />
+box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);<br />
+}<br />
+<br />
+.score-number {<br />
+font-size: 48px;<br />
+font-weight: bold;<br />
+color: white;<br />
+}<br />
+<br />
+.score-label {<br />
+color: rgba(255,255,255,0.9);<br />
+font-size: 18px;<br />
+}<br />
+<br />
+.results-stats {<br />
+display: flex;<br />
+justify-content: center;<br />
+gap: 30px;<br />
+margin-bottom: 30px;<br />
+flex-wrap: wrap;<br />
+}<br />
+<br />
+.stat {<br />
+text-align: center;<br />
+}<br />
+<br />
+.stat-number {<br />
+font-size: 36px;<br />
+font-weight: bold;<br />
+color: #667eea;<br />
+}<br />
+<br />
+.stat-label {<br />
+color: #666;<br />
+font-size: 14px;<br />
+margin-top: 5px;<br />
+}<br />
+<br />
+.quick-nav {<br />
+background: #f8f9fa;<br />
+padding: 20px;<br />
+margin-top: 30px;<br />
+border-radius: 8px;<br />
+}<br />
+<br />
+.quick-nav h3 {<br />
+text-align: center;<br />
+color: #667eea;<br />
+margin-bottom: 15px;<br />
+}<br />
+<br />
+.nav-grid {<br />
+display: grid;<br />
+grid-template-columns: repeat(auto-fill, minmax(45px, 1fr));<br />
+gap: 8px;<br />
+}<br />
+<br />
+.nav-btn {<br />
+padding: 10px;<br />
+border: 2px solid #e0e0e0;<br />
+background: white;<br />
+border-radius: 6px;<br />
+cursor: pointer;<br />
+font-size: 14px;<br />
+transition: all 0.2s;<br />
+}<br />
+<br />
+.nav-btn:hover {<br />
+border-color: #667eea;<br />
+background: #f8f9ff;<br />
+}<br />
+<br />
+.nav-btn.current {<br />
+border-color: #667eea;<br />
+background: #667eea;<br />
+color: white;<br />
+}<br />
+<br />
+.nav-btn.answered {<br />
+background: #e8f5e9;<br />
+border-color: #4caf50;<br />
+}<br />
+<br />
+.nav-btn.marked {<br />
+background: #fff9e6;<br />
+border-color: #ffd700;<br />
+}<br />
+<br />
+.hidden {<br />
+display: none;<br />
+}<br />
+<br />
+.loading {<br />
+text-align: center;<br />
+padding: 40px;<br />
+font-size: 18px;<br />
+color: #667eea;<br />
+}<br />
+<br />
+.error {<br />
+text-align: center;<br />
+padding: 40px;<br />
+color: #f44336;<br />
+}<br />
+&lt;/style&gt;<br />
+&lt;/head&gt;<br />
+&lt;body&gt;<br />
+&lt;div class="container"&gt;<br />
+&lt;div class="header"&gt;<br />
+&lt;h1&gt;�� Data Architecture Practice Test&lt;/h1&gt;<br />
+&lt;p id="questionCount"&gt;Loading questions...&lt;/p&gt;<br />
+&lt;div class="controls"&gt;<br />
+&lt;button class="control-btn" onclick="toggleAnswers()"&gt;�� Show
+Answers&lt;/button&gt;<br />
+&lt;button class="control-btn" onclick="toggleExplanations()"&gt;�� Show
+Explanations&lt;/button&gt;<br />
+&lt;button class="control-btn" onclick="shuffleQuestions()"&gt;��
+Shuffle&lt;/button&gt;<br />
+&lt;button class="control-btn"
+onclick="toggleReviewMode('marked')"&gt;⭐ Review
+Marked&lt;/button&gt;<br />
+&lt;button class="control-btn" onclick="resetQuiz()"&gt;��
+Reset&lt;/button&gt;<br />
+&lt;/div&gt;<br />
+&lt;/div&gt;<br />
+<br />
+&lt;div class="progress-bar"&gt;<br />
+&lt;div class="progress-fill" id="progressBar"&gt;&lt;/div&gt;<br />
+&lt;/div&gt;<br />
+<br />
+&lt;div class="content"&gt;<br />
+&lt;div id="loadingSection" class="loading"&gt;<br />
+Loading questions...<br />
+&lt;/div&gt;<br />
+<br />
+&lt;div id="errorSection" class="error hidden"&gt;<br />
+Error loading questions. Please make sure questions.json is in the same
+directory.<br />
+&lt;/div&gt;<br />
+<br />
+&lt;div id="reviewBanner" class="review-banner
+hidden"&gt;&lt;/div&gt;<br />
+<br />
+&lt;div id="quizSection" class="hidden"&gt;<br />
+&lt;div class="question-header"&gt;<br />
+&lt;span class="question-number" id="questionNumber"&gt;Question
+1&lt;/span&gt;<br />
+&lt;button class="mark-btn" id="markBtn" onclick="toggleMark()"&gt;⭐
+Mark&lt;/button&gt;<br />
+&lt;/div&gt;<br />
+<br />
+&lt;div class="question-text" id="questionText"&gt;&lt;/div&gt;<br />
+<br />
+&lt;div class="options" id="optionsContainer"&gt;&lt;/div&gt;<br />
+<br />
+&lt;div class="feedback hidden" id="feedback"&gt;<br />
+&lt;h3 id="feedbackTitle"&gt;&lt;/h3&gt;<br />
+&lt;p id="feedbackText"&gt;&lt;/p&gt;<br />
+&lt;/div&gt;<br />
+<br />
+&lt;div class="explanation hidden" id="explanationBox"&gt;<br />
+&lt;h3&gt;�� Explanation&lt;/h3&gt;<br />
+&lt;div id="explanationText"&gt;&lt;/div&gt;<br />
+&lt;/div&gt;<br />
+<br />
+&lt;div class="buttons"&gt;<br />
+&lt;button class="btn-secondary" onclick="previousQuestion()"&gt;←
+Previous&lt;/button&gt;<br />
+&lt;button class="btn-primary" id="submitBtn"
+onclick="checkAnswer()"&gt;Check Answer&lt;/button&gt;<br />
+&lt;button class="btn-secondary" onclick="nextQuestion()"&gt;Next
+→&lt;/button&gt;<br />
+&lt;/div&gt;<br />
+&lt;/div&gt;<br />
+<br />
+&lt;div id="resultsSection" class="results hidden"&gt;<br />
+&lt;h2&gt;�� Quiz Complete!&lt;/h2&gt;<br />
+&lt;div class="score-circle"&gt;<br />
+&lt;div class="score-number" id="scoreNumber"&gt;0%&lt;/div&gt;<br />
+&lt;div class="score-label"&gt;Score&lt;/div&gt;<br />
+&lt;/div&gt;<br />
+&lt;div class="results-stats"&gt;<br />
+&lt;div class="stat"&gt;<br />
+&lt;div class="stat-number" id="correctCount"&gt;0&lt;/div&gt;<br />
+&lt;div class="stat-label"&gt;Correct&lt;/div&gt;<br />
+&lt;/div&gt;<br />
+&lt;div class="stat"&gt;<br />
+&lt;div class="stat-number" id="incorrectCount"&gt;0&lt;/div&gt;<br />
+&lt;div class="stat-label"&gt;Incorrect&lt;/div&gt;<br />
+&lt;/div&gt;<br />
+&lt;div class="stat"&gt;<br />
+&lt;div class="stat-number" id="unansweredCount"&gt;0&lt;/div&gt;<br />
+&lt;div class="stat-label"&gt;Unanswered&lt;/div&gt;<br />
+&lt;/div&gt;<br />
+&lt;/div&gt;<br />
+&lt;div class="buttons"&gt;<br />
+&lt;button class="btn-primary" onclick="reviewIncorrect()"&gt;Review
+Incorrect&lt;/button&gt;<br />
+&lt;button class="btn-secondary" onclick="reviewAll()"&gt;Review
+All&lt;/button&gt;<br />
+&lt;button class="btn-secondary" onclick="resetQuiz()"&gt;Start
+Over&lt;/button&gt;<br />
+&lt;/div&gt;<br />
+&lt;/div&gt;<br />
+<br />
+&lt;div class="quick-nav"&gt;<br />
+&lt;h3&gt;Quick Navigation&lt;/h3&gt;<br />
+&lt;div class="nav-grid" id="navGrid"&gt;&lt;/div&gt;<br />
+&lt;/div&gt;<br />
+&lt;/div&gt;<br />
+&lt;/div&gt;<br />
+<br />
+&lt;script&gt;<br />
+// EMBEDDED QUESTION BANK<br />
+// To use external JSON: Comment out quizData below and uncomment
+loadQuestions() at bottom<br />
+let quizData = [];
+<br />
+<br />
+let currentQuestion = 0;<br />
+let userAnswers = {};<br />
+let questionOrder = [];<br />
+let showAnswers = false;<br />
+let showExplanations = false;<br />
+let markedQuestions = new Set();<br />
+let reviewMode = null;<br />
+<br />
+// Load questions from external JSON file (DISABLED - using embedded
+data)<br />
+async function loadQuestions() {<br />
+try {<br />
+const response = await fetch('questions.json');<br />
+if (!response.ok) {<br />
+throw new Error('Failed to load questions');<br />
+}<br />
+quizData = await response.json();<br />
+loadQuestions();<br />
+} catch (error) {<br />
+console.error('Error loading questions:', error);<br />
+document.getElementById('loadingSection').classList.add('hidden');<br />
+document.getElementById('errorSection').classList.remove('hidden');<br />
+}<br />
+}<br />
+<br />
+function init() {<br />
+questionOrder = [...Array(quizData.length).keys()];<br />
+document.getElementById('loadingSection').classList.add('hidden');<br />
+document.getElementById('quizSection').classList.remove('hidden');<br />
+document.getElementById('questionCount').textContent =
+`${quizData.length} Questions`;<br />
+createNavigation();<br />
+loadQuestion();<br />
+}<br />
+<br />
+function createNavigation() {<br />
+const navGrid = document.getElementById('navGrid');<br />
+navGrid.innerHTML = '';<br />
+<br />
+questionOrder.forEach((qIdx, position) =&gt; {<br />
+const btn = document.createElement('button');<br />
+btn.className = 'nav-btn';<br />
+btn.textContent = quizData[qIdx].number;<br />
+btn.onclick = () =&gt; goToQuestion(position);<br />
+<br />
+if (position === currentQuestion) {<br />
+btn.classList.add('current');<br />
+}<br />
+if (userAnswers[qIdx]?.checked) {<br />
+btn.classList.add('answered');<br />
+}<br />
+if (markedQuestions.has(qIdx)) {<br />
+btn.classList.add('marked');<br />
+}<br />
+<br />
+navGrid.appendChild(btn);<br />
+});<br />
+}<br />
+<br />
+function loadQuestion() {<br />
+const qIdx = questionOrder[currentQuestion];<br />
+const question = quizData[qIdx];<br />
+<br />
+document.getElementById('questionNumber').textContent =<br />
+`Question ${currentQuestion + 1} of ${questionOrder.length}
+(Q${question.number})`;<br />
+document.getElementById('questionText').textContent =
+question.question;<br />
+<br />
+// Update mark button<br />
+const markBtn = document.getElementById('markBtn');<br />
+if (markedQuestions.has(qIdx)) {<br />
+markBtn.classList.add('marked');<br />
+markBtn.textContent = '⭐ Marked';<br />
+} else {<br />
+markBtn.classList.remove('marked');<br />
+markBtn.textContent = '⭐ Mark';<br />
+}<br />
+<br />
+// Load options<br />
+const container = document.getElementById('optionsContainer');<br />
+container.innerHTML = '';<br />
+<br />
+Object.entries(question.options).forEach(([letter, text]) =&gt; {<br />
+const div = document.createElement('div');<br />
+div.className = 'option';<br />
+<br />
+const checkbox = document.createElement('input');<br />
+checkbox.type = 'checkbox';<br />
+checkbox.id = `opt_${letter}`;<br />
+checkbox.checked = userAnswers[qIdx]?.selected?.includes(letter) ||
+false;<br />
+checkbox.onchange = () =&gt; selectOption(letter);<br />
+<br />
+const label = document.createElement('label');<br />
+label.className = 'option-text';<br />
+label.htmlFor = `opt_${letter}`;<br />
+label.innerHTML = `&lt;strong&gt;${letter}.&lt;/strong&gt;
+${text}`;<br />
+<br />
+div.appendChild(checkbox);<br />
+div.appendChild(label);<br />
+div.onclick = (e) =&gt; {<br />
+if (e.target !== checkbox) {<br />
+checkbox.checked = !checkbox.checked;<br />
+selectOption(letter);<br />
+}<br />
+};<br />
+<br />
+container.appendChild(div);<br />
+});<br />
+<br />
+// Update UI state<br />
+updateQuestionUI();<br />
+updateProgress();<br />
+createNavigation();<br />
+}<br />
+<br />
+function selectOption(letter) {<br />
+const qIdx = questionOrder[currentQuestion];<br />
+if (!userAnswers[qIdx]) {<br />
+userAnswers[qIdx] = { selected: [], checked: false };<br />
+}<br />
+<br />
+const selected = userAnswers[qIdx].selected;<br />
+const index = selected.indexOf(letter);<br />
+<br />
+if (index &gt; -1) {<br />
+selected.splice(index, 1);<br />
+} else {<br />
+selected.push(letter);<br />
+}<br />
+<br />
+userAnswers[qIdx].checked = false;<br />
+updateQuestionUI();<br />
+}<br />
+<br />
+function checkAnswer() {<br />
+const qIdx = questionOrder[currentQuestion];<br />
+const question = quizData[qIdx];<br />
+const userAnswer = userAnswers[qIdx];<br />
+<br />
+if (!userAnswer || userAnswer.selected.length === 0) {<br />
+alert('Please select at least one answer!');<br />
+return;<br />
+}<br />
+<br />
+const correct = arraysEqual(<br />
+userAnswer.selected.sort(),<br />
+question.answer.sort()<br />
+);<br />
+<br />
+userAnswer.checked = true;<br />
+userAnswer.correct = correct;<br />
+<br />
+// Show feedback<br />
+const feedback = document.getElementById('feedback');<br />
+const feedbackTitle = document.getElementById('feedbackTitle');<br />
+const feedbackText = document.getElementById('feedbackText');<br />
+<br />
+feedback.classList.remove('hidden', 'correct', 'incorrect');<br />
+<br />
+if (correct) {<br />
+feedback.classList.add('correct');<br />
+feedbackTitle.textContent = '✓ Correct!';<br />
+feedbackText.textContent = `The answer is: ${question.answer.join(',
+')}`;<br />
+} else {<br />
+feedback.classList.add('incorrect');<br />
+feedbackTitle.textContent = '✗ Incorrect';<br />
+feedbackText.textContent = `The correct answer is:
+${question.answer.join(', ')}. You selected:
+${userAnswer.selected.join(', ')}`;<br />
+}<br />
+<br />
+// Show explanation<br />
+const explanationContainer =
+document.getElementById('explanationText');<br />
+explanationContainer.innerHTML = '';<br />
+<br />
+if (Array.isArray(question.explanation)) {<br />
+question.explanation.forEach(expl =&gt; {<br />
+const explDiv = document.createElement('div');<br />
+explDiv.className = 'explanation-item';<br />
+<br />
+if (expl.Status === 'Correct') {<br />
+explDiv.classList.add('correct-explanation');<br />
+} else if (expl.Status === 'Incorrect') {<br />
+explDiv.classList.add('incorrect-explanation');<br />
+}<br />
+<br />
+const statusDiv = document.createElement('div');<br />
+statusDiv.className = 'explanation-status';<br />
+statusDiv.classList.add(expl.Status.toLowerCase());<br />
+statusDiv.textContent = expl.Status;<br />
+<br />
+const choiceDiv = document.createElement('div');<br />
+choiceDiv.className = 'explanation-choice';<br />
+choiceDiv.textContent = expl.Choice;<br />
+<br />
+const rationaleDiv = document.createElement('div');<br />
+rationaleDiv.className = 'explanation-rationale';<br />
+rationaleDiv.textContent = expl.Rationale;<br />
+<br />
+explDiv.appendChild(statusDiv);<br />
+explDiv.appendChild(choiceDiv);<br />
+explDiv.appendChild(rationaleDiv);<br />
+explanationContainer.appendChild(explDiv);<br />
+});<br />
+} else {<br />
+// Fallback for string explanations<br />
+const p = document.createElement('p');<br />
+p.textContent = question.explanation;<br />
+explanationContainer.appendChild(p);<br />
+}<br />
+<br />
+document.getElementById('explanationBox').classList.remove('hidden');<br />
+<br />
+// Highlight options<br />
+Object.keys(question.options).forEach(letter =&gt; {<br />
+const checkbox = document.getElementById(`opt_${letter}`);<br />
+const div = checkbox.parentElement;<br />
+<br />
+if (question.answer.includes(letter)) {<br />
+div.classList.add('correct');<br />
+} else if (userAnswer.selected.includes(letter)) {<br />
+div.classList.add('incorrect');<br />
+}<br />
+});<br />
+<br />
+createNavigation();<br />
+}<br />
+<br />
+function updateQuestionUI() {<br />
+const qIdx = questionOrder[currentQuestion];<br />
+const userAnswer = userAnswers[qIdx];<br />
+<br />
+const feedback = document.getElementById('feedback');<br />
+const explanation = document.getElementById('explanationBox');<br />
+const submitBtn = document.getElementById('submitBtn');<br />
+<br />
+if (userAnswer?.checked) {<br />
+submitBtn.textContent = 'Checked ✓';<br />
+submitBtn.disabled = true;<br />
+submitBtn.style.opacity = '0.6';<br />
+<br />
+if (!showAnswers) {<br />
+feedback.classList.add('hidden');<br />
+}<br />
+if (!showExplanations) {<br />
+explanation.classList.add('hidden');<br />
+}<br />
+} else {<br />
+submitBtn.textContent = 'Check Answer';<br />
+submitBtn.disabled = false;<br />
+submitBtn.style.opacity = '1';<br />
+feedback.classList.add('hidden');<br />
+explanation.classList.add('hidden');<br />
+<br />
+// Remove highlighting<br />
+document.querySelectorAll('.option').forEach(opt =&gt; {<br />
+opt.classList.remove('correct', 'incorrect');<br />
+});<br />
+}<br />
+}<br />
+<br />
+function resetQuestionUI() {<br />
+document.getElementById('feedback').classList.add('hidden');<br />
+document.getElementById('explanationBox').classList.add('hidden');<br />
+document.querySelectorAll('.option').forEach(opt =&gt; {<br />
+opt.classList.remove('correct', 'incorrect');<br />
+});<br />
+}<br />
+<br />
+function updateProgress() {<br />
+const answered = Object.values(userAnswers).filter(a =&gt;
+a.checked).length;<br />
+const percentage = (answered / quizData.length) * 100;<br />
+document.getElementById('progressBar').style.width = percentage +
+'%';<br />
+}<br />
+<br />
+function toggleMark() {<br />
+const qIdx = questionOrder[currentQuestion];<br />
+if (markedQuestions.has(qIdx)) {<br />
+markedQuestions.delete(qIdx);<br />
+} else {<br />
+markedQuestions.add(qIdx);<br />
+}<br />
+loadQuestion();<br />
+}<br />
+<br />
+function toggleAnswers() {<br />
+showAnswers = !showAnswers;<br />
+const btn = event.target;<br />
+btn.classList.toggle('active');<br />
+<br />
+if (showAnswers) {<br />
+document.getElementById('feedback').classList.remove('hidden');<br />
+} else {<br />
+document.getElementById('feedback').classList.add('hidden');<br />
+}<br />
+}<br />
+<br />
+function toggleExplanations() {<br />
+showExplanations = !showExplanations;<br />
+const btn = event.target;<br />
+btn.classList.toggle('active');<br />
+<br />
+if (showExplanations) {<br />
+document.getElementById('explanationBox').classList.remove('hidden');<br />
+} else {<br />
+document.getElementById('explanationBox').classList.add('hidden');<br />
+}<br />
+}<br />
+<br />
+function shuffleQuestions() {<br />
+if (confirm('Shuffle questions? This will reset your progress.'))
+{<br />
+questionOrder = [...Array(quizData.length).keys()];<br />
+for (let i = questionOrder.length - 1; i &gt; 0; i--) {<br />
+const j = Math.floor(Math.random() * (i + 1));<br />
+[questionOrder[i], questionOrder[j]] = [questionOrder[j],
+questionOrder[i]];<br />
+}<br />
+currentQuestion = 0;<br />
+userAnswers = {};<br />
+markedQuestions.clear();<br />
+resetQuestionUI();<br />
+loadQuestion();<br />
+}<br />
+}<br />
+<br />
+function nextQuestion() {<br />
+if (currentQuestion &lt; questionOrder.length - 1) {<br />
+currentQuestion++;<br />
+resetQuestionUI();<br />
+loadQuestion();<br />
+} else if (reviewMode) {<br />
+currentQuestion = 0;<br />
+resetQuestionUI();<br />
+loadQuestion();<br />
+}<br />
+}<br />
+<br />
+function previousQuestion() {<br />
+if (currentQuestion &gt; 0) {<br />
+currentQuestion--;<br />
+resetQuestionUI();<br />
+loadQuestion();<br />
+} else if (reviewMode) {<br />
+currentQuestion = questionOrder.length - 1;<br />
+resetQuestionUI();<br />
+loadQuestion();<br />
+}<br />
+}<br />
+<br />
+function goToQuestion(position) {<br />
+currentQuestion = position;<br />
+resetQuestionUI();<br />
+loadQuestion();<br />
+}<br />
+<br />
+function arraysEqual(arr1, arr2) {<br />
+if (arr1.length !== arr2.length) return false;<br />
+return arr1.every((val, idx) =&gt; val === arr2[idx]);<br />
+}<br />
+<br />
+function resetQuiz() {<br />
+if (reviewMode || confirm('Reset quiz? This will clear all your
+answers.')) {<br />
+currentQuestion = 0;<br />
+userAnswers = {};<br />
+markedQuestions.clear();<br />
+reviewMode = null;<br />
+questionOrder = [...Array(quizData.length).keys()];<br />
+document.getElementById('reviewBanner').classList.add('hidden');<br />
+document.getElementById('resultsSection').classList.add('hidden');<br />
+document.getElementById('quizSection').classList.remove('hidden');<br />
+createNavigation();<br />
+resetQuestionUI();<br />
+loadQuestion();<br />
+}<br />
+}<br />
+<br />
+function toggleReviewMode(mode) {<br />
+reviewMode = mode;<br />
+let filteredQuestions = [];<br />
+<br />
+if (mode === 'all') {<br />
+filteredQuestions = [...Array(quizData.length).keys()];<br />
+showReviewBanner('Reviewing All Questions');<br />
+} else if (mode === 'marked') {<br />
+filteredQuestions = Array.from(markedQuestions);<br />
+if (filteredQuestions.length === 0) {<br />
+alert('No questions marked for review!');<br />
+return;<br />
+}<br />
+showReviewBanner(`Reviewing ${filteredQuestions.length} Marked
+Questions`);<br />
+} else if (mode === 'incorrect') {<br />
+filteredQuestions = Object.keys(userAnswers)<br />
+.filter(idx =&gt; userAnswers[idx].checked &amp;&amp;
+!userAnswers[idx].correct)<br />
+.map(idx =&gt; parseInt(idx));<br />
+if (filteredQuestions.length === 0) {<br />
+alert('No incorrect answers to review!');<br />
+return;<br />
+}<br />
+showReviewBanner(`Reviewing ${filteredQuestions.length} Incorrect
+Questions`);<br />
+}<br />
+<br />
+questionOrder = filteredQuestions;<br />
+currentQuestion = 0;<br />
+document.getElementById('resultsSection').classList.add('hidden');<br />
+document.getElementById('quizSection').classList.remove('hidden');<br />
+createNavigation();<br />
+resetQuestionUI();<br />
+loadQuestion();<br />
+}<br />
+<br />
+function showReviewBanner(text) {<br />
+const banner = document.getElementById('reviewBanner');<br />
+banner.textContent = text + ' - Click Reset Quiz to exit review
+mode';<br />
+banner.classList.remove('hidden');<br />
+}<br />
+<br />
+function showResults() {<br />
+const answered = Object.values(userAnswers).filter(a =&gt;
+a.checked).length;<br />
+const correct = Object.values(userAnswers).filter(a =&gt; a.checked
+&amp;&amp; a.correct).length;<br />
+const incorrect = answered - correct;<br />
+const unanswered = quizData.length - answered;<br />
+const percentage = Math.round((correct / quizData.length) * 100);<br />
+<br />
+document.getElementById('scoreNumber').textContent = percentage +
+'%';<br />
+document.getElementById('correctCount').textContent = correct;<br />
+document.getElementById('incorrectCount').textContent = incorrect;<br />
+document.getElementById('unansweredCount').textContent =
+unanswered;<br />
+<br />
+document.getElementById('quizSection').classList.add('hidden');<br />
+document.getElementById('resultsSection').classList.remove('hidden');<br />
+}<br />
+<br />
+function reviewAll() {<br />
+toggleReviewMode('all');<br />
+}<br />
+<br />
+function reviewIncorrect() {<br />
+toggleReviewMode('incorrect');<br />
+}<br />
+<br />
+// Start with embedded questions (for offline use)<br />
+// To use external JSON, uncomment: loadQuestions();<br />
+loadQuestions();<br />
+&lt;/script&gt;<br />
+&lt;/body&gt;<br />
+&lt;/html&gt;</p>
