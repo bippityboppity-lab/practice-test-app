@@ -1103,7 +1103,12 @@ async function loadQuestions() {
 
 try {
 
-const response = await fetch('questions.json');
+    // Build an absolute URL to the questions file based on the current
+    // page path. Without this, relative fetches can be resolved against
+    // the domain root when the page is accessed without a trailing slash,
+    // causing a 404. Appending a timestamp busts the cache.
+    const basePath = window.location.pathname.replace(/[^\/]*$/, '');
+    const response = await fetch(`${basePath}questions.json?${Date.now()}`);
 
 if (!response.ok) {
 
