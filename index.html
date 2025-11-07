@@ -1077,7 +1077,11 @@ Over</button>
 // To use external JSON: Comment out quizData below and uncomment
 loadQuestions() at bottom
 
-let quizData = [];
+// Initialize quizData only if not already defined by external script
+// When using questions.js, quizData will be defined globally.
+if (typeof quizData === 'undefined') {
+    var quizData = [];
+}
 
 
 
